@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>لوحة معلومات الأماكن في مصر</title>
     <!-- Meta Tags -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="لوحة معلومات متقدمة لإدارة وعرض بيانات الأماكن في مصر بتصميم حديث واستجابة كاملة.">
     <meta name="keywords" content="بيانات, لوحة معلومات, مصر, أماكن, تصميم ويب, استجابة, 2024">
     <!-- Open Graph Meta Tags -->
@@ -16,24 +16,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" >
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-
 <header class="header">
     <div class="container header__container">
         <h1 class="header__title">لوحة معلومات الأماكن في مصر</h1>
         <div class="header__actions">
-            <button id="toggle-theme-btn" class="button button--icon" aria-label="تبديل الوضع الليلي" title="تبديل الوضع الليلي">
-                <i class="fas fa-moon"></i>
-            </button>
-            <button id="buy-data-btn" class="button button--primary" title="شراء البيانات">
-                شراء البيانات <i class="fas fa-shopping-cart"></i>
+            <button id="buy-data-btn" class="button button--primary" title="شراء البيانات" aria-label="شراء البيانات">
+                شراء البيانات <i class="fas fa-shopping-cart" aria-hidden="true"></i>
             </button>
             <input type="file" id="file-input" accept=".json" class="visually-hidden" aria-label="تحميل ملف JSON">
             <label for="file-input" class="button button--upload" title="تحميل البيانات">
-                تحميل البيانات <i class="fas fa-upload"></i>
+                تحميل البيانات <i class="fas fa-upload" aria-hidden="true"></i>
             </label>
         </div>
     </div>
@@ -43,9 +43,8 @@
     <div class="container top-bar__container">
         <!-- Search Filter -->
         <div class="filter filter--search">
-            <label for="search-input" class="visually-hidden">بحث</label>
-            <input type="text" id="search-input" class="filter__input" placeholder="ابحث عن أماكن...">
-            <i class="fas fa-search filter__icon"></i>
+            <label for="search-input" class="filter__label">البحث</label>
+            <input type="text" id="search-input" class="filter__input" placeholder="ابحث عن أماكن..." aria-label="ابحث عن أماكن">
         </div>
 
         <!-- Category Filter -->
@@ -54,12 +53,12 @@
             <div class="dropdown" id="category-filter">
                 <button class="dropdown__toggle" aria-haspopup="true" aria-expanded="false" aria-controls="category-menu">
                     <span class="dropdown__placeholder">اختر الفئات</span>
-                    <div class="dropdown__tags"></div>
+                    <div class="dropdown__tags" aria-live="polite"></div>
                     <i class="fas fa-chevron-down dropdown__icon" aria-hidden="true"></i>
                 </button>
                 <div class="dropdown__menu" id="category-menu" role="menu">
                     <div class="dropdown__select-all">
-                        <input type="checkbox" id="category-select-all" class="dropdown__select-all-checkbox">
+                        <input type="checkbox" id="category-select-all" class="dropdown__select-all-checkbox" aria-label="تحديد كل الفئات">
                         <label for="category-select-all">تحديد الكل</label>
                     </div>
                     <div class="dropdown__search">
@@ -78,12 +77,12 @@
             <div class="dropdown" id="governorate-filter">
                 <button class="dropdown__toggle" aria-haspopup="true" aria-expanded="false" aria-controls="governorate-menu">
                     <span class="dropdown__placeholder">اختر المحافظات</span>
-                    <div class="dropdown__tags"></div>
+                    <div class="dropdown__tags" aria-live="polite"></div>
                     <i class="fas fa-chevron-down dropdown__icon" aria-hidden="true"></i>
                 </button>
                 <div class="dropdown__menu" id="governorate-menu" role="menu">
                     <div class="dropdown__select-all">
-                        <input type="checkbox" id="governorate-select-all" class="dropdown__select-all-checkbox">
+                        <input type="checkbox" id="governorate-select-all" class="dropdown__select-all-checkbox" aria-label="تحديد كل المحافظات">
                         <label for="governorate-select-all">تحديد الكل</label>
                     </div>
                     <div class="dropdown__search">
@@ -99,32 +98,31 @@
         <!-- Rating Filter -->
         <div class="filter filter--slider">
             <label for="rating-filter" class="filter__label">التقييم الأدنى: <span id="rating-value">0</span></label>
-            <input type="range" id="rating-filter" min="0" max="5" step="0.1" value="0" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" class="filter__range">
+            <input type="range" id="rating-filter" min="0" max="5" step="0.1" value="0" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" class="filter__range" aria-label="التقييم الأدنى">
         </div>
 
         <!-- Additional Filters -->
-        <div class="filter filter--checkbox">
-            <label class="filter__label" for="phone-filter">
-                <input type="checkbox" id="phone-filter" class="filter__checkbox">
-                يمتلك رقم هاتف
-            </label>
+        <div class="analysiss-item">
+            <div class="filter filter--checkbox">
+                <label class="filter__label" for="phone-filter">
+                    <input type="checkbox" id="phone-filter" class="filter__checkbox">
+                    يمتلك رقم هاتف
+                </label>
+            </div>
+
+            <div class="filter">
+                <label class="filter__label" for="url-filter">
+                    <input type="checkbox" id="url-filter" class="filter__checkbox">
+                    يمتلك موقع إلكتروني
+                </label>
+            </div>
         </div>
 
-        <div class="filter filter--checkbox">
-            <label class="filter__label" for="url-filter">
-                <input type="checkbox" id="url-filter" class="filter__checkbox">
-                يمتلك موقع إلكتروني
-            </label>
-        </div>
-
-        <button id="export-data-btn" class="button button--secondary" title="تصدير البيانات">
-            <i class="fas fa-file-csv" aria-hidden="true"></i> تصدير البيانات
-        </button>
     </div>
 </nav>
 
 <!-- Data Analysis Bar -->
-<section class="analysis-bar">
+<section class="analysis-bar" aria-label="شريط تحليل البيانات">
     <div class="container analysis-bar__container">
         <div class="analysis-item">
             <strong>إجمالي الأماكن:</strong>
@@ -140,6 +138,18 @@
         </div>
     </div>
 </section>
+
+<!-- Map Section -->
+<div id="map-container" class="map-container">
+    <div id="map" class="map"></div>
+    <!-- Map Filters -->
+    <div id="map-filters" class="map-filters">
+        <h3>تصفية النتائج على الخريطة</h3>
+        <!-- Map Filters Content -->
+        <!-- You can add filter controls similar to the top-bar here if needed -->
+    </div>
+    <button id="close-map-btn" class="close-map-btn" aria-label="إغلاق الخريطة">×</button>
+</div>
 
 <main class="main-content">
     <div class="container">
@@ -163,17 +173,18 @@
         <h2 id="buy-modal-title" class="modal__title">شراء البيانات</h2>
         <form id="buy-form">
             <div class="modal__section">
+                <label for="buy-search-input" class="modal__label">بحث عن أماكن</label>
+                <input type="text" id="buy-search-input" class="modal__input" placeholder="مثال: مطعم أو كافيه" aria-label="بحث عن أماكن">
+                <small class="modal__note">كلما كانت الكلمات أقل وأكثر وضوحًا، زادت النتائج</small>
+            </div>
+            <div class="modal__section">
                 <label for="buy-governorate-select" class="modal__label">اختر المحافظات</label>
-                <select id="buy-governorate-select" multiple class="modal__select">
+                <select id="buy-governorate-select" multiple class="modal__select" aria-label="اختر المحافظات">
                     <!-- Governorate options will be populated here -->
                 </select>
                 <small class="modal__note">يمكنك اختيار محافظة واحدة أو عدة محافظات</small>
             </div>
-            <div class="modal__section">
-                <label for="buy-search-input" class="modal__label">بحث عن أماكن (اختياري)</label>
-                <input type="text" id="buy-search-input" class="modal__input" placeholder="مثال: مطعم أو كافيه">
-                <small class="modal__note">كلما كانت الكلمات أقل وأكثر وضوحًا، زادت النتائج</small>
-            </div>
+
             <div class="modal__section">
                 <p class="modal__price-label">التكلفة الإجمالية:</p>
                 <p id="total-price" class="modal__price">0 جنيه مصري</p>
@@ -212,7 +223,6 @@
         </div>
         <div class="modal__section">
             <a href="#" id="whatsapp-link" target="_blank" class="button button--whatsapp">
-                <i class="fab fa-whatsapp"></i>
                 إرسال التفاصيل عبر واتساب
             </a>
         </div>
@@ -232,13 +242,28 @@
     </div>
 </div>
 
-<!-- Floating Action Button -->
-<button id="fab" class="fab" aria-label="تحميل البيانات">
-    <i class="fas fa-upload"></i>
+<!-- Floating Action Buttons -->
+<button id="map-toggle-btn" class="fabb" aria-label="عرض الخريطة">
+    <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+</button>
+
+<button id="export-data-btn" class="fab2" aria-label="تصدير البيانات">
+    <i class="fas fa-file-csv" aria-hidden="true"></i>
+</button>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="back-to-top" aria-label="العودة إلى الأعلى">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</button>
+
+<!-- Theme Toggle Button -->
+<button id="toggle-theme-btn" class="theme-toggle-btn" aria-label="تغيير الوضع">
+    <i class="fas fa-moon" aria-hidden="true"></i>
 </button>
 
 <!-- Scripts -->
-<script type="module" src="script.js"></script>
-
+<!-- Leaflet JS for Map -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script type="module" src="script.js" defer></script>
 </body>
 </html>

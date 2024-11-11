@@ -1,6 +1,7 @@
 // modules/modals.js
 
 import { calculatePrice } from './pricing.js';
+import { rawData } from '../script.js';
 
 const buyModal = document.getElementById('buy-modal');
 const paymentModal = document.getElementById('payment-modal');
@@ -11,8 +12,6 @@ const totalPriceElement = document.getElementById('total-price');
 const paymentMethodName = document.getElementById('payment-method-name');
 const whatsappLink = document.getElementById('whatsapp-link');
 const paymentNumber = document.querySelector('.modal__payment-number');
-
-import { rawData } from '../script.js';
 
 export function showBuyModal() {
     populateGovernorateOptions();

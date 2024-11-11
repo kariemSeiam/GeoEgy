@@ -44,3 +44,22 @@ export function toggleTheme() {
     const icon = document.getElementById('toggle-theme-btn').querySelector('i');
     icon.className = targetTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
 }
+
+export function lazyLoadImages() {
+    const images = document.querySelectorAll('[data-src]:not(.loaded)');
+    images.forEach(img => {
+        if (img.getBoundingClientRect().top < window.innerHeight) {
+            img.src = img.getAttribute('data-src');
+            img.classList.add('loaded');
+        }
+    });
+}
+
+export function backToTopVisibility() {
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (window.scrollY > 300) {
+        backToTopBtn.style.display = 'flex';
+    } else {
+        backToTopBtn.style.display = 'none';
+    }
+}

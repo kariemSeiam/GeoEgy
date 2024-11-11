@@ -2,17 +2,6 @@
 
 import { closeAllModals } from './modals.js';
 
-export function handleScroll() {
-    const fab = document.getElementById('fab');
-    if (window.scrollY > 200) {
-        fab.style.display = 'flex';
-        document.body.classList.add('scrolled');
-    } else {
-        fab.style.display = 'none';
-        document.body.classList.remove('scrolled');
-    }
-}
-
 export function handleClickOutside(event) {
     // Close Modals
     document.querySelectorAll('.modal').forEach(modal => {
@@ -33,7 +22,7 @@ export function handleClickOutside(event) {
 
 export function handleKeyDown(event) {
     if (event.key === 'Escape') {
-        closeAllModals();  // Use closeAllModals from modals.js
+        closeAllModals();
         // Close Dropdowns
         document.querySelectorAll('.dropdown').forEach(dropdown => {
             const toggleButton = dropdown.querySelector('.dropdown__toggle');

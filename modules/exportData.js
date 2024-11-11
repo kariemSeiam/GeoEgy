@@ -34,12 +34,12 @@ function convertToCSV(dataArray) {
 }
 
 function downloadCSV(csvContent, filename) {
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    if (navigator.msSaveBlob) { // For IE 10+
+    const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+    if (navigator.msSaveBlob) {
         navigator.msSaveBlob(blob, filename);
     } else {
         const link = document.createElement('a');
-        if (link.download !== undefined) { // feature detection
+        if (link.download !== undefined) {
             const url = URL.createObjectURL(blob);
             link.setAttribute('href', url);
             link.setAttribute('download', filename);

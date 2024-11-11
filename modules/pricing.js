@@ -1,7 +1,6 @@
 // modules/pricing.js
 
 const governoratePrices = {
-    // Governorate: Price (EGP)
     "القاهرة": 300,
     "الجيزة": 300,
     "الإسكندرية": 350,
@@ -16,13 +15,14 @@ const governoratePrices = {
     "الدقهلية": 200,
     "دمياط": 200,
     "سوهاج": 200,
-    // ... Add all governorates with their respective prices
+    // ... Add all other governorates with their respective prices
 };
 
-const allEgyptPrice = 2500; // Special price for all of Egypt
+const allEgyptPrice = 2500;
 
 export function calculatePrice(selectedGovernorates) {
-    if (selectedGovernorates.length === Object.keys(governoratePrices).length) {
+    const allGovernorates = Object.keys(governoratePrices);
+    if (selectedGovernorates.length === allGovernorates.length) {
         return allEgyptPrice;
     }
 

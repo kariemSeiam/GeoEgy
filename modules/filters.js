@@ -4,6 +4,7 @@ import { rawData, filteredData } from '../script.js';
 import { renderData } from './renderData.js';
 import { updateAnalysisBar } from './analysisBar.js';
 import { debounce } from './utils.js';
+import { updateMapData } from './map.js';
 
 const ratingFilter = document.getElementById('rating-filter');
 const phoneFilter = document.getElementById('phone-filter');
@@ -31,7 +32,6 @@ export function initializeFilters() {
     initDropdown(categoryFilter, Array.from(categories), 'اختر الفئات');
     initDropdown(governorateFilter, Array.from(governorates), 'اختر المحافظات');
 }
-
 
 function initDropdown(dropdownElement, options, placeholder) {
     const toggleButton = dropdownElement.querySelector('.dropdown__toggle');
@@ -79,7 +79,7 @@ function initDropdown(dropdownElement, options, placeholder) {
     });
 
     searchInput.addEventListener('input', () => {
-        const filter = searchInput.value.toLowerCase();
+        const filter = searchInput.value.trim().toLowerCase();
         const items = list.querySelectorAll('.dropdown__item');
         let found = false;
 
@@ -97,7 +97,7 @@ function initDropdown(dropdownElement, options, placeholder) {
 
     selectAllCheckbox.addEventListener('change', () => {
         const checkboxes = list.querySelectorAll('.dropdown__checkbox');
-        const filter = searchInput.value.toLowerCase();
+        const filter = searchInput.value.trim().toLowerCase();
 
         checkboxes.forEach(cb => {
             const listItem = cb.closest('.dropdown__item');
@@ -124,7 +124,7 @@ function updateSelectedOptions(dropdownElement, placeholder) {
 
     tagsContainer.innerHTML = '';
 
-    const maxVisibleTags = 1; // Adjust this number based on your design needs
+    const maxVisibleTags = 1;
     const visibleOptions = selectedOptions.slice(0, maxVisibleTags);
     const remainingCount = selectedOptions.length - visibleOptions.length;
 
@@ -191,7 +191,7 @@ export const applyFilters = debounce(() => {
         const itemGovernorate = item.address && item.address.governorate;
         const itemRating = item.reviews && item.reviews.average_rating;
         const hasPhoneNumber = !!item.phone_number;
-        const hasUrl = item.url && item.url !== 'N/A';
+        const hasUrl = (item.url && item.url !== 'N/A') || (item.reviews && item.reviews.url);
 
         const categoryMatch = selectedCategories.length > 0 ? selectedCategories.includes(itemCategory) : true;
         const governorateMatch = selectedGovernorates.length > 0 ? selectedGovernorates.includes(itemGovernorate) : true;
@@ -205,6 +205,7 @@ export const applyFilters = debounce(() => {
 
     renderData();
     updateAnalysisBar();
+    updateMapData();
 }, 300);
 
 function getSelectedOptions(dropdownElement) {

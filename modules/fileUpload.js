@@ -3,10 +3,11 @@
 import { rawData } from '../script.js';
 import { cleanData } from './utils.js';
 import { initializeFilters, applyFilters } from './filters.js';
+import { updateMapData } from './map.js';
 
 export function handleFileUpload(event) {
   const file = event.target.files[0];
-  if (file && file.type === "application/json") {
+  if (file && (file.type === "application/json" || file.name.endsWith('.json'))) {
     const reader = new FileReader();
     reader.onload = async (e) => {
       try {
@@ -14,6 +15,7 @@ export function handleFileUpload(event) {
         rawData.push(...cleanData(JSON.parse(e.target.result)));
         initializeFilters();
         applyFilters();
+        updateMapData();
       } catch (error) {
         console.error("Error parsing JSON file:", error);
         alert('ملف JSON غير صالح. تأكد من أن الملف يحتوي على JSON صحيح.');
