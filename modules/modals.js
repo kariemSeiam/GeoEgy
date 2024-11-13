@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const whatsappNumber = '+201033939828'; // استبدل XXXXXXXXXXX برقمك
 
     // إنشاء رابط واتساب
-    const whatsappLink = `https://wa.me/+2${whatsappNumber}?text=${encodeURIComponent(orderDetails)}`;
+    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderDetails)}`;
 
     // فتح واتساب في نافذة جديدة
     window.open(whatsappLink, '_blank');
