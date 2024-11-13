@@ -1007,6 +1007,7 @@ a {
   align-items: center;
   justify-content: center;
   transition: background-color var(--transition-duration);
+  z-index: 10;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
@@ -1031,6 +1032,7 @@ a {
   align-items: center;
   justify-content: center;
   transition: background-color var(--transition-duration);
+  z-index: 10;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
@@ -1055,6 +1057,7 @@ a {
   align-items: center;
   justify-content: center;
   transition: background-color var(--transition-duration);
+  z-index: 10;
 }
 
 .back-to-top:hover,
@@ -1078,6 +1081,7 @@ a {
   align-items: center;
   justify-content: center;
   transition: background-color var(--transition-duration);
+  z-index: 10;
 }
 
 .theme-toggle-btn:hover,
@@ -1094,6 +1098,7 @@ a {
   inset-inline-end: 0;
   display: none;
   flex-direction: column;
+  z-index: 1000;
 }
 
 .map-container.active {
