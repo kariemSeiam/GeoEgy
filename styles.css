@@ -1098,7 +1098,6 @@ a {
   inset-inline-end: 0;
   display: none;
   flex-direction: column;
-  z-index: 1000;
 }
 
 .map-container.active {
