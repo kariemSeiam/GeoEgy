@@ -1,6 +1,5 @@
 // modules/events.js
 
-import { closeAllModals } from './modals.js';
 
 export function handleClickOutside(event) {
     // Close Modals
@@ -22,7 +21,6 @@ export function handleClickOutside(event) {
 
 export function handleKeyDown(event) {
     if (event.key === 'Escape') {
-        closeAllModals();
         // Close Dropdowns
         document.querySelectorAll('.dropdown').forEach(dropdown => {
             const toggleButton = dropdown.querySelector('.dropdown__toggle');

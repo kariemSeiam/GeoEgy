@@ -99,13 +99,7 @@ export function renderData() {
         description.textContent = item.about || 'لا يوجد وصف متاح.';
         contentDiv.appendChild(description);
 
-        // Rating Badge (after title and description)
-        if (item.reviews && item.reviews.average_rating) {
-            const ratingBadge = document.createElement('div');
-            ratingBadge.className = 'data-rating-badge';
-            ratingBadge.textContent = `★ ${item.reviews.average_rating.toFixed(1)}  (${item.reviews.count})`;
-            contentDiv.appendChild(ratingBadge);
-        }
+
 
         // Location Information
         if (item.address && item.address.governorate) {
@@ -130,9 +124,6 @@ export function renderData() {
 
 
 
-
-        // Append content to header
-        headerDiv.appendChild(contentDiv);
 
         // Append header to card
         card.appendChild(headerDiv);
@@ -189,9 +180,17 @@ export function renderData() {
                 facebookButton.innerHTML = '<i class="fas fa-globe"></i>';
             }
         } else {
+          if (item.additional_info.google_local_guide && item.additional_info.google_local_guide !== 'N/A' ) {
+            facebookButton.innerHTML = '<i class="fas fa-globe"></i>';
+            facebookButton.target = '_blank';
+            facebookButton.rel = 'noopener noreferrer';
+            facebookButton.title = 'التقييمات';
+            facebookButton.href = item.additional_info.google_local_guide;
+          }else {
             facebookButton.classList.add('disabled');
             facebookButton.innerHTML = '<i class="fas fa-globe"></i>';
             facebookButton.title = 'لا يوجد موقع';
+          }
         }
         actionsDiv.appendChild(facebookButton);
 
@@ -201,10 +200,10 @@ export function renderData() {
             navigateButton.className = 'data-card__button';
             const lat = item.coordinates.latitude;
             const lng = item.coordinates.longitude;
-            navigateButton.href = `https://maps.google.com/maps?daddr=${lat},${lng}`;
+            navigateButton.href = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
             navigateButton.target = '_blank';
             navigateButton.rel = 'noopener noreferrer';
-            navigateButton.innerHTML = '<i class="fas fa-directions"></i>';
+            navigateButton.innerHTML = '<i class="fas fa-map-marker-alt"></i>';
             navigateButton.title = 'الانتقال إلى الموقع';
             actionsDiv.appendChild(navigateButton);
         } else {
@@ -229,6 +228,39 @@ export function renderData() {
             reviewsButton.innerHTML = '<i class="fas fa-comments"></i>';
             reviewsButton.title = 'لا توجد مراجعات';
         }
+
+
+        if (item.reviews && item.reviews.average_rating) {
+            const ratingBadge = document.createElement('div');
+            ratingBadge.className = 'data-rating-badge';
+
+            // Determine color based on rating value
+            const ratingValue = item.reviews.average_rating;
+            let colorClass;
+            if (ratingValue >= 2.5) {
+                colorClass = 'high-rating'; // Green for high ratings
+            } else if (ratingValue >= 2) {
+                colorClass = 'medium-rating'; // Yellow for medium ratings
+            } else {
+                colorClass = 'low-rating'; // Red for low ratings
+            }
+            ratingBadge.classList.add(colorClass);
+
+            // Create icon and text
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-star';
+            ratingBadge.appendChild(icon);
+
+            // Add rating text
+            const ratingText = document.createTextNode(` ${ratingValue.toFixed(1)} (${item.reviews.count})`);
+            ratingBadge.appendChild(ratingText);
+
+            contentDiv.appendChild(ratingBadge);
+        }
+
+        // Append content to header
+        headerDiv.appendChild(contentDiv);
+
         actionsDiv.appendChild(reviewsButton);
 
         // Append actions to card

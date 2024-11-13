@@ -28,12 +28,10 @@
     <div class="container header__container">
         <h1 class="header__title">لوحة معلومات الأماكن في مصر</h1>
         <div class="header__actions">
-            <button id="buy-data-btn" class="button button--primary" title="شراء البيانات" aria-label="شراء البيانات">
-                شراء البيانات <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            <button id="buy-data-btn" class="button button--primary" title="شراء البيانات" aria-label="شراء البيانات"><span>شراء البيانات</span><i class="fas fa-shopping-cart" aria-hidden="true"></i>
             </button>
             <input type="file" id="file-input" accept=".json" class="visually-hidden" aria-label="تحميل ملف JSON">
-            <label for="file-input" class="button button--upload" title="تحميل البيانات">
-                تحميل البيانات <i class="fas fa-upload" aria-hidden="true"></i>
+            <label for="file-input" class="button button--upload" title="تحميل البيانات"><span>تحميل البيانات</span><i class="fas fa-upload" aria-hidden="true"></i>
             </label>
         </div>
     </div>
@@ -110,7 +108,7 @@
                 </label>
             </div>
 
-            <div class="filter">
+            <div class="filter filter--checkbox">
                 <label class="filter__label" for="url-filter">
                     <input type="checkbox" id="url-filter" class="filter__checkbox">
                     يمتلك موقع إلكتروني
@@ -165,82 +163,156 @@
     </div>
 </footer>
 
-<!-- Modals -->
-<!-- Buy Data Modal -->
+<!-- نموذج شراء البيانات -->
 <div id="buy-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="buy-modal-title">
-    <div class="modal__content" tabindex="-1">
-        <button class="modal__close-btn" aria-label="إغلاق">×</button>
-        <h2 id="buy-modal-title" class="modal__title">شراء البيانات</h2>
-        <form id="buy-form">
-            <div class="modal__section">
-                <label for="buy-search-input" class="modal__label">بحث عن أماكن</label>
-                <input type="text" id="buy-search-input" class="modal__input" placeholder="مثال: مطعم أو كافيه" aria-label="بحث عن أماكن">
-                <small class="modal__note">كلما كانت الكلمات أقل وأكثر وضوحًا، زادت النتائج</small>
-            </div>
-            <div class="modal__section">
-                <label for="buy-governorate-select" class="modal__label">اختر المحافظات</label>
-                <select id="buy-governorate-select" multiple class="modal__select" aria-label="اختر المحافظات">
-                    <!-- Governorate options will be populated here -->
-                </select>
-                <small class="modal__note">يمكنك اختيار محافظة واحدة أو عدة محافظات</small>
-            </div>
+  <div class="modal__content" tabindex="-1">
+    <button class="modal__close-btn" aria-label="إغلاق">×</button>
+    <h2 id="buy-modal-title" class="modal__title">شراء البيانات</h2>
+    <form id="buy-form">
+      <!-- الخطوة 1: البحث عن الأماكن -->
+      <div class="modal__section">
+        <p class="modal__step">الخطوة 1 من 3</p>
+        <label for="buy-search-input" class="modal__label">ما هي الأماكن التي تريد البحث عنها؟</label>
+        <input type="text" id="buy-search-input" name="searchQuery" class="modal__input" placeholder="مثال: مطعم، كافيه، صيدلية" required>
+      </div>
+      <!-- الخطوة 2: اختيار المحافظات -->
+      <div class="modal__section">
+        <p class="modal__step">الخطوة 2 من 3</p>
+        <label class="modal__label">اختر المحافظات</label>
+        <div class="modal__options">
+          <label class="modal__option">
+            <input type="checkbox" id="select-all" value="all">
+            <span>كل محافظات مصر</span>
+          </label>
+          <div class="modal__scrollable">
+            <!-- تعبئة المحافظات مع أسعارها -->
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="القاهرة" class="governorate-checkbox">
+              <span>القاهرة - 200 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="الجيزة" class="governorate-checkbox">
+              <span>الجيزة - 180 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="الإسكندرية" class="governorate-checkbox">
+              <span>الإسكندرية - 200 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="أسوان" class="governorate-checkbox">
+              <span>أسوان - 120 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="أسيوط" class="governorate-checkbox">
+              <span>أسيوط - 120 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="الأقصر" class="governorate-checkbox">
+              <span>الأقصر - 120 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="البحر الأحمر" class="governorate-checkbox">
+              <span>البحر الأحمر - 120 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="البحيرة" class="governorate-checkbox">
+              <span>البحيرة - 150 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="بني سويف" class="governorate-checkbox">
+              <span>بني سويف - 120 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="بورسعيد" class="governorate-checkbox">
+              <span>بورسعيد - 120 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="جنوب سيناء" class="governorate-checkbox">
+              <span>جنوب سيناء - 120 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="الدقهلية" class="governorate-checkbox">
+              <span>الدقهلية - 150 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="دمياط" class="governorate-checkbox">
+              <span>دمياط - 150 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="سوهاج" class="governorate-checkbox">
+              <span>سوهاج - 120 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="المنوفية" class="governorate-checkbox">
+              <span>المنوفية - 150 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="الغربية" class="governorate-checkbox">
+              <span>الغربية - 150 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="الفيوم" class="governorate-checkbox">
+              <span>الفيوم - 150 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="السويس" class="governorate-checkbox">
+              <span>السويس - 150 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="مرسى مطروح" class="governorate-checkbox">
+              <span>مرسى مطروح - 120 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="شمال سيناء" class="governorate-checkbox">
+              <span>شمال سيناء - 120 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="قنا" class="governorate-checkbox">
+              <span>قنا - 120 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="الشرقية" class="governorate-checkbox">
+              <span>الشرقية - 150 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="كفر الشيخ" class="governorate-checkbox">
+              <span>كفر الشيخ - 150 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="المنيا" class="governorate-checkbox">
+              <span>المنيا - 120 جنيه</span>
+            </label>
+            <label class="modal__option">
+              <input type="checkbox" name="governorates" value="الاسماعيلية" class="governorate-checkbox">
+              <span>الاسماعيلية - 150 جنيه</span>
+            </label>
+          </div>
 
-            <div class="modal__section">
-                <p class="modal__price-label">التكلفة الإجمالية:</p>
-                <p id="total-price" class="modal__price">0 جنيه مصري</p>
-            </div>
-            <div class="modal__section">
-                <p class="modal__payment-label">اختر طريقة الدفع:</p>
-                <div class="modal__payment-options">
-                    <label class="modal__payment-option">
-                        <input type="radio" name="payment-method" value="vodafone" checked>
-                        <span>فودافون كاش</span>
-                    </label>
-                    <label class="modal__payment-option">
-                        <input type="radio" name="payment-method" value="instapay">
-                        <span>إنستا باي</span>
-                    </label>
-                </div>
-            </div>
-            <div class="modal__section">
-                <button type="submit" class="button button--primary modal__submit-btn">متابعة إلى الدفع</button>
-            </div>
-        </form>
-    </div>
+        </div>
+      </div>
+      <!-- الخطوة 3: معلومات إضافية وتأكيد -->
+      <div class="modal__section">
+        <p class="modal__step">الخطوة 3 من 3</p>
+        <label for="business-info" class="modal__label">معلومات إضافية عن نشاطك التجاري (اختياري)</label>
+        <textarea id="business-info" name="businessInfo" class="modal__textarea" placeholder="صف نشاطك التجاري باختصار"></textarea>
+      </div>
+      <!-- قسم التكلفة -->
+      <div class="modal__section">
+        <p class="modal__price-label">التكلفة الإجمالية:</p>
+        <p id="total-price" class="modal__price">0 جنيه مصري</p>
+      </div>
+      <!-- طريقة الدفع -->
+      <div class="modal__section">
+        <p class="modal__payment-instructions">اضغط على الزر أدناه لإرسال تفاصيل طلبك عبر واتساب.</p>
+      </div>
+      <!-- زر الإرسال -->
+      <div class="modal__section">
+        <button type="submit" class="button button--primary modal__submit-btn">إرسال الطلب عبر واتساب</button>
+      </div>
+    </form>
+  </div>
 </div>
 
-<!-- Payment Modal -->
-<div id="payment-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="payment-modal-title">
-    <div class="modal__content" tabindex="-1">
-        <button class="modal__close-btn" aria-label="إغلاق">×</button>
-        <h2 id="payment-modal-title" class="modal__title">تفاصيل الدفع</h2>
-        <div class="modal__section">
-            <p class="modal__payment-instruction">
-                يرجى إرسال المبلغ إلى الرقم التالي عبر <span id="payment-method-name">فودافون كاش</span>:
-            </p>
-            <p class="modal__payment-number">01012345678</p>
-            <p class="modal__payment-note">ثم اضغط على الزر أدناه لإرسال تفاصيل طلبك عبر واتساب.</p>
-        </div>
-        <div class="modal__section">
-            <a href="#" id="whatsapp-link" target="_blank" class="button button--whatsapp">
-                إرسال التفاصيل عبر واتساب
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- Success Modal -->
-<div id="success-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="success-modal-title">
-    <div class="modal__content" tabindex="-1">
-        <button class="modal__close-btn" aria-label="إغلاق">×</button>
-        <h2 id="success-modal-title" class="modal__title">شكراً لطلبك!</h2>
-        <div class="modal__section">
-            <p class="modal__success-message">
-                تم استلام طلبك بنجاح. سنرسل لك البيانات في أقرب وقت ممكن.
-            </p>
-        </div>
-    </div>
-</div>
 
 <!-- Floating Action Buttons -->
 <button id="map-toggle-btn" class="fabb" aria-label="عرض الخريطة">
