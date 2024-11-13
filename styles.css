@@ -157,22 +157,35 @@ a {
 
 .button--upload:hover,
 .button--upload:focus-visible {
-  background-color: #f1f3f4;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white; /* Soft hover effect */
+  transform: scale(1.1);  /* Slightly enlarges the icon on hover */
+  transition: all 0.2s ease-in-out;  /* Smooth hover transition */
 }
 
 .button--primary {
-  background-color: var(--secondary-color);
+  background-color: #28a745; /* Green background color */
   color: #fff;
 }
 
 .button--primary:hover,
 .button--primary:focus-visible {
-  background-color: var(--badge-bg-color);
+  background-color: #218838; /* Darker green on hover */
+  transform: scale(1.05); /* Slightly enlarges the button on hover */
 }
 
+
 @media (max-width: 768px) {
-  .button--upload,
   .button--primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    background-color: #28a745; /* Green background color */
+
+  }
+
+  .button--upload {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -183,17 +196,25 @@ a {
     width: 50px
 
   }
-  /* Optional: Adjust button icons if there are any */
-  .button--upload::before,
-  .button--primary::before {
+
+
+  .button--upload::before{
     font-size: initial; /* Keep icon visible if using pseudo-elements */
     font-size: 0; /* Hide text within button */
 
   }
+  .button--primary::before {
+    font-size: initial; /* Keep icon visible if using pseudo-elements */
+    background-color: #28a745; /* Green background color */
 
-  .button--upload span,
-  .button--primary span {
+  }
+
+  .button--upload span{
     display: none;  /* Hide text on mobile */
+  }
+  .button--primary span {
+    display: inline-block;
+
   }
 
   .button--upload {
@@ -202,14 +223,20 @@ a {
   }
 
   .button--primary {
-    background-color: var(--secondary-color);
+    background-color: #28a745; /* Green background color */
     color: #fff;
   }
 
   /* Hover effect */
-  .button--upload:hover,
+  .button--upload:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white; /* Soft hover effect */
+    transform: scale(1.1);  /* Slightly enlarges the icon on hover */
+    transition: all 0.2s ease-in-out;  /* Smooth hover transition */
+  }
+  /* Hover effect */
   .button--primary:hover {
-    background-color: #e0e0e0;  /* Soft hover effect */
+    background-color: #218838; /* Darker green on hover */
     transform: scale(1.1);  /* Slightly enlarges the icon on hover */
     transition: all 0.2s ease-in-out;  /* Smooth hover transition */
   }
