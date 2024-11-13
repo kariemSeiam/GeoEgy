@@ -154,7 +154,7 @@ export function renderData() {
         const whatsappButton = document.createElement('a');
         whatsappButton.className = 'data-card__button';
         if (item.phone_number) {
-            whatsappButton.href = `https://wa.me/${item.phone_number}`;
+            whatsappButton.href = `https://wa.me/+2${item.phone_number}`;
             whatsappButton.target = '_blank';
             whatsappButton.rel = 'noopener noreferrer';
             whatsappButton.innerHTML = '<i class="fab fa-whatsapp"></i>';
