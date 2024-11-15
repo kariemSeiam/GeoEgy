@@ -46,6 +46,6 @@ export function calculatePrice(selectedGovernorates) {
 
     // حساب التكلفة بناءً على المحافظات المختارة
     return selectedGovernorates.reduce((total, gov) => {
-        return total + (governoratePrices[gov] || 150); // إضافة سعر افتراضي إذا لم يتم العثور على المحافظة
+        return total + (governoratePrices[gov] || 200); // إضافة سعر افتراضي إذا لم يتم العثور على المحافظة
     }, 0);
 }
